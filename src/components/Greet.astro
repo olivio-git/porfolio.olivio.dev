@@ -1,0 +1,111 @@
+---
+import GitHub from "../utils/Icons/GitHub.astro";
+import Hero from "../utils/Icons/Hero.astro";
+import Linkedin from "../utils/Icons/Linkedin.astro";
+import SocialMedia from "./SocialMedia.astro";
+import Wrapper from "./Wrapper.astro";
+
+const { class: className } = Astro.props;
+---
+
+<Wrapper>
+  <div class="">
+    <Hero class="w-40 rounded-2xl" />
+  </div>
+  <div class="w-full flex flex-cols lg:flex-row items-end mb-10">
+    <span
+      class="text-md md:text-md lg:text-3xl xl:text-4xl font-bold text-[#707581] dark:text-gray-50 epilogue-sans"
+    >
+      Me llamo
+    </span>
+    <p
+      class="text-md md:text-md lg:text-2xl xl:text-3xl font-bold text-[#363B45] dark:text-gray-50 epilogue-sans"
+    >
+      <span
+        id="typewritter"
+        class="typewritter before:bg-white dark:before:bg-[#0F172A] p-1 text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+        >Olivio</span
+      >
+    </p>
+  </div>
+  <div class="w-full flex flex-cols lg:flex-row gap-2">
+    <span
+      class="text-md md:text-md lg:text-3xl xl:text-4xl font-bold text-[#707581] dark:text-gray-50 epilogue-sans"
+    >
+      Desarrollador 
+      <span
+        class="before:bg-[#EBECEE] text-[#FFCA28] dark:text-[#FFCA28] dark:before:bg-[#0F172A] p-1 text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+        >JavaScript</span
+      >
+      <!-- y estudiante de Ing. de Sistemas -->
+    </span>
+  </div>
+  <div class="w-full flex flex-cols lg:flex-row gap-2">
+    <SocialMedia class="text-white flex  flex-row items-end  rounded-lg py-1 pr-4  cursor-pointer gap-1">
+      <Linkedin id="linkedin_olivio" class="rounded-lg cursor-pointer" href="https://www.linkedin.com/in/olivio-subelza-cabezas-b646a2249" />
+      <!-- <span
+      class="text-md md:text-md lg:text-md xl:text-md text-[#707581] dark:text-gray-50 epilogue-sans"
+    >
+      Linkedin
+    </span> -->
+    </SocialMedia>
+    <SocialMedia class="text-white flex  flex-row items-end  rounded-lg py-1 pr-4  cursor-pointer gap-1">
+      <GitHub id="github_olivio" class="rounded-lg cursor-pointer" href="https://www.github.com/olivio-git" />
+      <!-- <span
+      class="text-md md:text-md lg:text-md xl:text-md text-[#707581] dark:text-gray-50 epilogue-sans"
+    >
+      GitHub
+    </span> -->
+    </SocialMedia>
+    <SocialMedia />
+  </div>
+  <!-- <div class="w-full flex flex-cols lg:flex-row gap-2">
+    <span
+      class="text-md md:text-md lg:text-2xl xl:text-3xl font-bold text-[#707581] dark:text-gray-50 epilogue-sans"
+    >
+      Desarrollador
+  </div> -->
+</Wrapper>
+<script is:inline>
+  const text = document.getElementById("typewritter");
+
+  const textLoad = () => {
+    setTimeout(() => {
+      text.textContent = "Olivio";
+    }, 0);
+    // setTimeout(() => {
+    //   text.textContent = "Web Developer";
+    // }, 4000);
+  };
+
+  textLoad();
+  setInterval(textLoad, 8000);
+</script>
+<style>
+  .typewritter {
+    position: relative;
+    color: #38bdf8;
+    /* color: #363B45;  */
+  }
+  .typewritter:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #030712;
+    border-left: 2px solid #38bdf8;
+    /* border-left: 2px solid #363B45; */
+    animation: typing 4s steps(12) infinite;
+  }
+  @keyframes typing {
+    40%,
+    60% {
+      left: calc(100% + 4px);
+    }
+    100% {
+      left: 0%;
+    }
+  }
+</style>

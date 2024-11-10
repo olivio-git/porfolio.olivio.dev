@@ -1,0 +1,105 @@
+---
+import BarClose from "../utils/Icons/BarClose.astro";
+import BarOpen from "../utils/Icons/BarOpen.astro";
+import Logo from "../utils/Icons/Logo.astro";
+
+const Fields = [
+  {
+    name: "Home",
+    url: "/#presentation",
+  },
+  {
+    name: "Skills",
+    url: "/#skills",
+  },
+  {
+    name: "Projects",
+    url: "/#projects",
+  }, 
+  // {
+  //   name: "Contact",
+  //   url: "/#contact",
+  // },
+];
+---
+
+<header class="fixed w-full mx-auto flex items-center justify-center z-10"> 
+  <nav
+    id="navbar"
+    class="bg-white bg-opacity-5 px-2 sm:px-5 md:px-10 lg:px-20 w-full 
+    flex justify-between items-center justify-center gap-10"
+  >
+    <section class="w-full h-24 flex items-center">
+      <Logo class="w-20" />
+    </section> 
+    <section
+      id="button_open_close"
+      class="sm:hidden relative w-12 h-12 flex items-center justify-center cursor-pointer dark:drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]"
+    >
+      <BarOpen id="bar-open" class="w-6 h-6" />
+      <BarClose id="bar-close" class="w-6 h-6 hidden" />
+    </section> 
+    <section
+      id="fields"
+      class="relative gap-10 hidden sm:flex px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-500 epilogue-sans"
+    >
+      {
+        Fields.map((field) => (
+          <a href={field.url} class="text-[#363B45] dark:text-white font-medium">
+            {field.name}
+          </a>
+        ))
+      }
+    </section>
+  </nav>
+</header>
+<script is:inline>
+  const barOpen = document.getElementById("bar-open");
+  const barClose = document.getElementById("bar-close"); 
+  const navbar = document.getElementById("navbar");
+  const fields = document.getElementById("fields");
+
+
+  const handleUpdate = () => { 
+    if (barOpen.classList.contains("hidden")) { // if barOpen is hidden
+      barOpen.classList.remove("hidden");
+      barClose.classList.add("hidden"); 
+      // fields.classList.toggle("hidden"); 
+      // navbar.classList.remove("flex-col");
+
+      return;
+    }
+    if (barClose.classList.contains("hidden")) { // if barClose is hidden
+      barClose.classList.remove("hidden");
+      barOpen.classList.add("hidden"); 
+      // fields.classList.toggle("hidden");
+      // navbar.classList.toggle("flex-col");
+      // navbar.classList.toggle("flex-col");
+
+      return;
+    }
+  };
+  const button = document.getElementById("button_open_close");
+  barOpen.addEventListener("click", handleUpdate);
+  barClose.addEventListener("click", handleUpdate);
+</script>
+<style>
+  nav {
+    animation: nav-shadown 1s linear both;
+    animation-timeline: scroll();
+    animation-range: 0 200px;
+  }
+
+  nav {
+    @apply dark:bg-gray-950/20 bg-white/50;
+  }
+
+  @keyframes nav-shadown {
+    0% {
+      @apply dark:bg-gray-950/0 bg-white/0;
+    }
+    to {
+      @apply shadow-lg ring-1 backdrop-blur ring-white/10;
+    }
+  }
+</style>

@@ -1,0 +1,12 @@
+---
+const { class: className, id } = Astro.props;
+---
+
+<div
+  id={id}
+  data-section={id}
+  class=`flex ${className} flex-col scroll-m-20 min-h-dvh dark:bg-[#0F172A] bg-white justify-center`
+>
+  <slot />
+</div>
+

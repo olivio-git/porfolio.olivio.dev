@@ -1,0 +1,66 @@
+---
+import Html from "../utils/Icons/Html.astro";
+import JavaScript from "../utils/Icons/JavaScript.astro";
+import ReactJs from "../utils/Icons/ReactJs.astro";
+import NodeJs from "../utils/Icons/NodeJs.astro";
+import Css from "../utils/Icons/Css.astro";
+import Wrapper from "./Wrapper.astro";
+import MongoDb from "../utils/Icons/MongoDb.astro";
+import PostgreSql from "../utils/Icons/PostgreSql.astro";
+import Gradient from "./Gradient.astro";
+
+const skills = [
+  {
+    name: "HTML",
+    icon: Html,
+  },
+  {
+    name: "JavaScript",
+    icon: JavaScript,
+  },
+  {
+    name: "ReactJs - React Native",
+    icon: ReactJs,
+  },
+  {
+    name: "NodeJs",
+    icon: NodeJs,
+  },
+  {
+    name:"MongoDB",
+    icon:MongoDb
+  },
+//   {
+//     name:"Css",
+//     icon:Css
+//   }
+  {
+    name: "PostgreSQL",
+    icon: PostgreSql
+  }
+];
+---
+
+<Wrapper>
+  <div class="flex flex-col"> 
+    <span
+      class="text-lg my-5 md:text-md lg:text-3xl  xl:text-4xl font-bold text-[#707581] dark:text-gray-50 epilogue-sans"
+    >
+      Skills
+    </span>
+    <div class="body-fragments-skills gap-5">
+      {
+        skills.map((skill) => (
+          <div class="flex flex-col w-full rounded-2xl p-10 gap-4 cursor-pointer 
+          dark:hover:bg-opacity-10 bg-white dark:bg-[#121629] border-[0.5px] dark:border-[#282E40] shadow-lg bg-opacity-10
+          transition-all duration-300 ease-in-out items-center justify-center">
+            <skill.icon width="96" heigth="96" />
+            <span class="text-lg font-bold text-[#707581] dark:text-gray-50 radio-canada">
+              {skill.name}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </div></Wrapper
+>

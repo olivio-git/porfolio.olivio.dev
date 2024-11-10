@@ -1,0 +1,34 @@
+---
+const { class: className } = Astro.props;
+const image = "https://i.ibb.co/kMMS0nM/20eef0e708bb.jpg";
+---
+
+<img
+  src={image}
+  alt="olivio dev profile"
+  id="olivio_hero"
+  class=`${className} aspect-square aspect-image`
+/>
+
+<script is:inline>
+//   const tagImg = document.getElementById("olivio_hero");
+//   const textLoad = () => {
+//     setTimeout(() => {
+//       tagImg.src = "https://i.ibb.co/kMMS0nM/20eef0e708bb.jpg";
+//     }, 0);
+//     setTimeout(() => {
+//       tagImg.src = "https://i.ibb.co/DDRsSF9/logo-olviodev.jpg";
+//     }, 4000);
+//   };
+//   textLoad();
+//   setInterval(textLoad, 6000);
+</script>
+
+<style>
+  .aspect-image {
+    mask-image: linear-gradient(
+      black 90%,
+      transparent 100%
+    );
+  }
+</style>

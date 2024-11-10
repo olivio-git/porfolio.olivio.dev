@@ -1,0 +1,65 @@
+---
+import Moon from "../utils/Icons/Moon.astro";
+import Sun from "../utils/Icons/Sun.astro";
+---
+
+<div class="bottom-0 right-0 m-4 fixed z-10">
+  <label class="cursor-pointer">
+    <div class="flex hover:scale-110">
+      <Moon id="light" class="theme-icon absolute transition-300" />
+      <Sun id="dark" class="theme-icon transition-300" fill="yellow"/>
+    </div>
+    <input
+      hidden
+      value="1"
+      class="input__check"
+      id="toggle"
+      name="toggle"
+      type="checkbox"
+    />
+    <label
+      class="btn-color-mode-switch-inner"
+      data-off="Light"
+      data-on="dark"
+      for="toggle"></label>
+  </label>
+</div>
+
+<script is:inline>
+  let remove = null;
+
+  const toggle = document.getElementById("toggle");
+  const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
+
+  const getThemePreferences = () => {
+    const theme = localStorage.getItem("theme");
+    return theme === null ? "system" : theme;
+  };
+  const updateIcon = (theme) => {
+    document.querySelectorAll(".theme-icon").forEach((icon) => {
+      icon.style.scale = icon.id === theme ? 1 : 0;
+    });
+  };
+  const updateTheme = () => {
+    const themePreference = getThemePreferences();
+    const isDark =
+      themePreference === "dark" ||
+      (themePreference === "system" && matchMedia.matches);
+    toggle.checked = isDark;
+    updateIcon(themePreference);
+    document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+  };
+
+  updateTheme();
+
+  matchMedia.addEventListener("change", updateTheme);
+
+  toggle.addEventListener("change", () => {
+    const isDark = toggle.checked;
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+    updateTheme();
+  });
+
+  remove = () => matchMedia.removeEventListener("change", updateTheme);
+</script>
+ 
