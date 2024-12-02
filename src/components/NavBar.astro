@@ -2,6 +2,7 @@
 import BarClose from "../utils/Icons/BarClose.astro";
 import BarOpen from "../utils/Icons/BarOpen.astro";
 import Logo from "../utils/Icons/Logo.astro";
+import DropDownBar from "./DropDownBar.astro";
 
 const Fields = [
   {
@@ -22,23 +23,22 @@ const Fields = [
   // },
 ];
 ---
-
-<header class="fixed w-full mx-auto flex items-center justify-center z-10"> 
+<header class="fixed w-full mx-auto flex items-center justify-center z-10">
   <nav
     id="navbar"
     class="bg-white bg-opacity-5 px-2 sm:px-5 md:px-10 lg:px-20 w-full 
     flex justify-between items-center justify-center gap-10"
   >
-    <section class="w-full h-24 flex items-center">
+    <section class="w-full h-18 flex items-center">
       <Logo class="w-20" />
-    </section> 
+    </section>
     <section
       id="button_open_close"
       class="sm:hidden relative w-12 h-12 flex items-center justify-center cursor-pointer dark:drop-shadow-[0_0_20px_rgba(255,255,255,0.5)]"
     >
       <BarOpen id="bar-open" class="w-6 h-6" />
       <BarClose id="bar-close" class="w-6 h-6 hidden" />
-    </section> 
+    </section>
     <section
       id="fields"
       class="relative gap-10 hidden sm:flex px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-500 epilogue-sans"
@@ -51,38 +51,69 @@ const Fields = [
         ))
       }
     </section>
+    <div
+      id="dropdownHover"
+      class="z-10 dark:border-1 fixed hidden right-5 top-16 bg-white divide-y divide-gray-100 rounded-md shadow w-44"
+    >
+      <ul id="fieldsElements" class="py-2 text-sm text-gray-700 dark:text-gray-200">
+        {
+          Fields.map((field,index) => (
+            <li>
+              <a
+                href={field.url}
+                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              >
+                {field.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </nav>
 </header>
+
 <script is:inline>
   const barOpen = document.getElementById("bar-open");
-  const barClose = document.getElementById("bar-close"); 
-  const navbar = document.getElementById("navbar");
-  const fields = document.getElementById("fields");
-
-
-  const handleUpdate = () => { 
-    if (barOpen.classList.contains("hidden")) { // if barOpen is hidden
+  const barClose = document.getElementById("bar-close");
+  const button = document.getElementById("button_open_close");
+  const dropdown = document.getElementById("dropdownHover");
+  const fields = document.getElementById("fieldsElements");
+ 
+  for (let i = 0; i < fields.children.length; i++) {
+    fields.children.item(i).addEventListener("click",()=>{
+      dropdown.classList.toggle("hidden", true);
+      barClose.classList.add("hidden");
       barOpen.classList.remove("hidden");
-      barClose.classList.add("hidden"); 
-      // fields.classList.toggle("hidden"); 
-      // navbar.classList.remove("flex-col");
+    });
+  }
+ 
+  const toggleDropdown = (show) => {
+    dropdown.classList.toggle("hidden", !show);
+    dropdown.classList.toggle("flex", show);  
+  };
 
-      return;
-    }
-    if (barClose.classList.contains("hidden")) { // if barClose is hidden
-      barClose.classList.remove("hidden");
-      barOpen.classList.add("hidden"); 
-      // fields.classList.toggle("hidden");
-      // navbar.classList.toggle("flex-col");
-      // navbar.classList.toggle("flex-col");
-
-      return;
+  const handleDocumentClick = (event) => {
+    const isClickInside = dropdown.contains(event.target) || button.contains(event.target);
+    if (!isClickInside) {
+      toggleDropdown(false);  
+      barClose.classList.add("hidden");
+      barOpen.classList.remove("hidden");
     }
   };
-  const button = document.getElementById("button_open_close");
-  barOpen.addEventListener("click", handleUpdate);
-  barClose.addEventListener("click", handleUpdate);
+
+  const handleToggleClick = () => {
+    const isMenuOpen = dropdown.classList.contains("hidden");
+    toggleDropdown(isMenuOpen);
+
+    barOpen.classList.toggle("hidden", isMenuOpen);
+    barClose.classList.toggle("hidden", !isMenuOpen);
+  };
+
+  button.addEventListener("click", handleToggleClick);
+  document.addEventListener("click", handleDocumentClick);
 </script>
+
 <style>
   nav {
     animation: nav-shadown 1s linear both;
@@ -93,7 +124,12 @@ const Fields = [
   nav {
     @apply dark:bg-gray-950/20 bg-white/50;
   }
-
+  #dropdownHover {
+    @apply dark:bg-gray-950/40 bg-white/50;
+  }
+  #dropdownHover {
+    animation: nav-shadown 150ms linear both;
+  }
   @keyframes nav-shadown {
     0% {
       @apply dark:bg-gray-950/0 bg-white/0;

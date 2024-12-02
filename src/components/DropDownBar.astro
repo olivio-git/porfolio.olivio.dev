@@ -1,0 +1,50 @@
+---
+const { props } = Astro.props;
+const Fields = [
+  {
+    name: "Home",
+    url: "/#presentation",
+  },
+  {
+    name: "Skills",
+    url: "/#skills",
+  },
+  {
+    name: "Projects",
+    url: "/#projects",
+  },
+  // {
+  //   name: "Contact",
+  //   url: "/#contact",
+  // },
+];
+---
+
+<div
+  id="dropdownHover"
+  class="z-10 fixed hidden right-5 top-16 bg-white divide-y divide-gray-100 rounded-md shadow w-44 dark:bg-gray-700"
+>
+  <ul
+    id="fields"
+    class="py-2 text-sm text-gray-700 dark:text-gray-200"
+    aria-labelledby="dropdownHoverButton"
+  >
+    {
+      Fields.map((field: any) => (
+        <li id="selectedField">
+          <a
+            href={field.url}
+            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+          >
+            {field.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+    const ul = document.getElementById("fields");
+     
+</script>
